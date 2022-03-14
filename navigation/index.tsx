@@ -26,6 +26,10 @@ import tw from "../lib/tailwind";
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
+const PopcornIcon = () => (
+  <FontAwesomeIcon icon={faPopcorn} size={24} style={tw`ml-2 text-gray-900`} />
+);
+
 function BottomTabNavigator() {
   return (
     <BottomTab.Navigator initialRouteName="Films">
@@ -35,13 +39,7 @@ function BottomTabNavigator() {
         options={() => ({
           title: "Films",
           tabBarShowLabel: false,
-          tabBarIcon: React.memo(() => (
-            <FontAwesomeIcon
-              icon={faPopcorn}
-              size={24}
-              style={tw`ml-2 text-gray-900`}
-            />
-          )),
+          tabBarIcon: PopcornIcon,
         })}
       />
     </BottomTab.Navigator>
