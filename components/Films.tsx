@@ -38,7 +38,7 @@ const Films = ({ query }: { query?: string }) => {
           {item.title}
         </Text>
         <View style={tw`flex-row flex-wrap mb-8 -mt-4 -ml-4`}>
-          {item.genres.map(({ id, name }: { id: string; name: string }) => (
+          {item.genres.map(({ id, name }) => (
             <Pill text={name} key={id} />
           ))}
         </View>
@@ -79,7 +79,7 @@ const Films = ({ query }: { query?: string }) => {
       ) : (
         <FlatList
           style={tw`-mt-8`}
-          data={films}
+          data={films as []}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           onEndReached={() => {

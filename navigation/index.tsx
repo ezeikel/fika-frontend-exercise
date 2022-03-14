@@ -3,7 +3,6 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -17,26 +16,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPopcorn } from "@fortawesome/pro-light-svg-icons";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import FilmsScreen from "../screens/FilmsScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../types";
+import { RootStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import tw from "../lib/tailwind";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+/**
+ * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
+ * https://reactnavigation.org/docs/bottom-tab-navigator
+ */
+const BottomTab = createBottomTabNavigator<RootTabParamList>();
+
+function BottomTabNavigator() {
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
+    <BottomTab.Navigator initialRouteName="Films">
+      <BottomTab.Screen
+        name="Films"
+        component={FilmsScreen}
+        options={() => ({
+          title: "Films",
+          tabBarShowLabel: false,
+          tabBarIcon: React.memo(() => (
+            <FontAwesomeIcon
+              icon={faPopcorn}
+              size={24}
+              style={tw`ml-2 text-gray-900`}
+            />
+          )),
+        })}
+      />
+    </BottomTab.Navigator>
   );
 }
 
@@ -63,40 +71,17 @@ function RootNavigator() {
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
-
-function BottomTabNavigator() {
-  return (
-    <BottomTab.Navigator initialRouteName="Films">
-      <BottomTab.Screen
-        name="Films"
-        component={FilmsScreen}
-        options={({ navigation }: RootTabScreenProps<"Films">) => ({
-          title: "Films",
-          tabBarShowLabel: false,
-          tabBarIcon: () => (
-            <FontAwesomeIcon
-              icon={faPopcorn}
-              size={24}
-              style={tw`ml-2 text-gray-900`}
-            />
-          ),
-        })}
-      />
-    </BottomTab.Navigator>
-  );
-}
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return (
+    <NavigationContainer
+      linking={LinkingConfiguration}
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
+      <RootNavigator />
+    </NavigationContainer>
+  );
 }

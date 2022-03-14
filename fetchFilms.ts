@@ -4,8 +4,6 @@ import queryString from "query-string";
 import { BASE_URL } from "./constants";
 
 export default async ({ query, page }: { query?: string; page: number }) => {
-  console.log({ key: Constants.manifest?.extra?.moviesDbAPIKey });
-
   const url = queryString.stringifyUrl(
     {
       url: `${BASE_URL}/${query ? "search" : "discover"}/movie`,

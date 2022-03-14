@@ -4,7 +4,7 @@ import { RootStackScreenProps } from "../types";
 const NotFoundScreen = ({ navigation }: RootStackScreenProps<"NotFound">) => {
   return (
     <View>
-      <Text>This screen doesn't exist.</Text>
+      <Text>This screen doesn&apos;t exist.</Text>
       <TouchableOpacity onPress={() => navigation.replace("Root")}>
         <Text>Go to home screen!</Text>
       </TouchableOpacity>

@@ -4,7 +4,9 @@ import fetchFilms from "../fetchFilms";
 import fetchGenres from "../fetchGenres";
 
 const useFetchFilms = (query?: string) => {
-  const [films, setFilms] = useState([]);
+  const [films, setFilms] = useState<
+    { genres: string[]; genre_ids: { id: string; name: string } }[]
+  >([]);
 
   // fetch data
   const {
@@ -48,8 +50,8 @@ const useFetchFilms = (query?: string) => {
         .map((film) => ({
           ...film,
           // new property for parsed genres for film
-          genres: film.genre_ids.map((genreId) =>
-            genres.find((genre) => genre.id === genreId),
+          genres: film.genre_ids.map((genreId: string) =>
+            genres.find((genre: { id: string }) => genre.id === genreId),
           ),
         })),
     );

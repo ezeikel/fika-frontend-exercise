@@ -2,15 +2,29 @@
   "name": "fika-frontend-exercise",
   "version": "1.0.0",
   "scripts": {
+    "lint": "jest --config test/jest.lint.js",
+    "check-types": "tsc",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json|css|md|mdx|html)\"",
+    "format": "yarn prettier --write",
+    "check-format": "yarn prettier --list-different",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "prepare": "husky install"
   },
-  "jest": {
-    "preset": "jest-expo"
+  "jest-runner-eslint": {
+    "cliOptions": {
+      "ignorePath": "./.gitignore"
+    }
+  },
+  "lint-staged": {
+    "**/*.+(js|jsx|json|ts|tsx|html|md)": [
+      "prettier --ignore-path .gitignore --write",
+      "jest --findRelatedTests"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -51,13 +65,32 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/node": "^17.0.21",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/yup": "^0.29.13",
+    "@typescript-eslint/eslint-plugin": "^5.14.0",
+    "@typescript-eslint/parser": "^5.14.0",
     "babel-plugin-inline-dotenv": "^1.6.0",
-    "jest": "^26.6.3",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^16.1.2",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
+    "jest": "^27.5.1",
     "jest-expo": "~44.0.1",
+    "jest-runner-eslint": "^1.0.0",
+    "lint-staged": "^12.3.5",
+    "prettier": "^2.5.1",
     "react-test-renderer": "17.0.1",
     "typescript": "~4.3.5"
   },
